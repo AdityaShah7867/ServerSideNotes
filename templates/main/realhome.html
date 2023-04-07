@@ -99,14 +99,14 @@
 
         <div class="card-body">
           <div class="text-block">
-            <h1>{{x.sub}} <small>MOD : {{x.mod}}</small></h1>
-            <h3>{{x.typeN}}</h3>
+            <h1 class="abcd">{{x.sub}}<small ><br>MOD : {{x.mod}} | {{x.typeN}}</small></h1>
+
             <p>
               LIKES: {{x.likes.count}}
-
-
               <br>
               CREDIT : {{x.author.name}}
+              <br>
+              DESC :{{x.desc}}
             </p>
             {% if request.user in x.buy.all %}
             <form method="POST" action="{% url 'notesViewer' x.slug %}">

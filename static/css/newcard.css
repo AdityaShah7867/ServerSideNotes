@@ -60,3 +60,14 @@
   {
     background-color: black;
   }
+
+  @media (max-width: 780px) {
+   .abcd{
+    font-size: 8px;
+  }
+}
+@media (max-width: 840px) {
+   .abcd{
+    font-size: 8px;
+  }
+}

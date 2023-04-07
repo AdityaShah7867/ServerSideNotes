@@ -6,7 +6,7 @@ class UserAccountManager(BaseUserManager):
     def create_user(self, email, name, password = None):
         if not email:
             raise ValueError('User must provide a email')
-        
+
         user = self.model(
             email = email,
             name = name
@@ -53,7 +53,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     rank = models.IntegerField(default=0)
     bookmarks = models.ManyToManyField('blogapp.Notes', blank=True)
     is_emailVerified = models.BooleanField(default=False)
-  
+
 
     objects = UserAccountManager()
 
@@ -93,7 +93,7 @@ class Notes(models.Model):
         ('LectureSlides','Lecture Slides'),
         ('PYQ','PYQ'),
 
-        
+
     )
 
     mods = (
@@ -106,14 +106,14 @@ class Notes(models.Model):
     )
 
 
-    
+
 
     desc = models.TextField(max_length=500,null=True,blank=True)
     mod = models.CharField(max_length=5,choices=mods,null=True,blank=True)
     file = models.FileField(upload_to='notes/')
     author = models.ForeignKey(UserAccount,on_delete=models.CASCADE)
     status = models.BooleanField(default=False)
-    likes = models.ManyToManyField(UserAccount,related_name="notes_like")
+    likes = models.ManyToManyField(UserAccount,related_name="notes_like",default=0)
     views = models.PositiveIntegerField(default=0)
     buy=models.ManyToManyField(UserAccount,related_name="buy_notes")
     typeN = models.CharField(max_length=50,null=True,blank=True,choices=typ)
@@ -122,7 +122,7 @@ class Notes(models.Model):
     slug = AutoSlugField(populate_from = 'sub',unique=True,null=True,default=None)
 
 
-    
+
 
     nDetail = models.CharField(max_length=100,null=True,blank=True)
 
@@ -131,14 +131,14 @@ class Notes(models.Model):
         niu = f'{self.sub.name} - {self.mod} {self.typeN} by {self.author}'
 
         return niu
-    
+
     def acceptStatus(self):
 
         return f'/acceptStatus/{self.slug}/'
-    
+
     def attachLink(self):
         return f'/addDriveLink/{self.slug}/'
-    
+
     def comnt(self):
         return f'/notes/{self.slug}/comment/'
 
@@ -153,14 +153,14 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.cmnt} by {self.toU.name}'
-    
+
     def reply(self):
 
         return f'/notes/{self.note.slug}/comment/{self.slug}/'
-    
+
     def seeR(self):
         return f'/seeRply/{self.slug}/'
-    
+
 
 class CmntReply(models.Model):
 
@@ -171,7 +171,7 @@ class CmntReply(models.Model):
 
     def __str__(self):
         return f'{self.frR} from {self.frR}'
-    
+
 class Reminder(models.Model):
     title = models.CharField(max_length=200)
     due_date = models.DateField(auto_now=False,auto_now_add=False)

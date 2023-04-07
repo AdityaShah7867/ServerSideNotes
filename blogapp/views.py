@@ -28,9 +28,9 @@ from django.core.mail import EmailMessage
 #     user.coins_scored -=100
 #     user.save()
 
-# for user in UserAccount.objects.all():
-#     user.is_emailVerified = True
-#     user.save()
+# for note in Notes.objects.all():
+#     note.desc = ""
+#     note.save()
 
 
 
