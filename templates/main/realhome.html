@@ -2,6 +2,15 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'css/card.css' %}" />
+<style>
+
+    @media (max-width: 780px) {
+        .rbtn {
+            width:5em;
+        }
+    }
+
+</style>
 
 <div class="container notesCnt mt-4 mb-4">
   {% include 'authentication/messages.html' %}
@@ -11,21 +20,47 @@
         {% csrf_token %}
 
         <!-- <input id="autocomplete" class="autocomplete form-control me-2" type="text" name="searchQ" placeholder="Search" aria-label="Search"> -->
+        <!--<div id="autocomplete" class="autocomplete input-group mb-3">-->
+        <!--  <input class="form-control me-2 search" type="text" name="searchQ" placeholder="Search" aria-label="Search" />-->
+        <!--  <ul class="autocomplete-result-list"></ul>-->
+
+        <!--  <div class="input-group-append">-->
+        <!--    <button class="btn btn-outline-success" type="submit">-->
+        <!--      Search-->
+        <!--    </button>-->
+        <!--    <button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal"-->
+        <!--      data-bs-target="#exampleModal">-->
+        <!--      Filter-->
+        <!--    </button>-->
+        <!--  </div>-->
+        <!--</div>-->
+
         <div id="autocomplete" class="autocomplete input-group mb-3">
-          <input class="form-control me-2 search" type="text" name="searchQ" placeholder="Search" aria-label="Search" />
+          <input
+            class="form-control me-2"
+            type="text"
+            name="searchQ"
+            placeholder="Search"
+            aria-label="Search"
+          />
           <ul class="autocomplete-result-list"></ul>
 
           <div class="input-group-append">
-            <button class="btn btn-outline-success" type="submit">
+            <button class="btn btn-outline-success rbtn" type="submit">
               Search
             </button>
-            <button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal"
-              data-bs-target="#exampleModal">
+            <button
+              type="button"
+              class="btn btn-outline-primary ms-1 rbtn"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
               Filter
             </button>
           </div>
         </div>
       </form>
+
     </div>
     <div class="container-lg-6">
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -58,7 +93,7 @@
 
   <div class="row d-flex justify-content-center align-items-center">
     {% for x in notes.qs %}
-   
+
 
       <div class="card cardImg mx-4 my-4" style="width: 22rem; height: 16em; background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 60%),url('{{x.sub.img.url}}');">
 
@@ -68,8 +103,8 @@
             <h3>{{x.typeN}}</h3>
             <p>
               LIKES: {{x.likes.count}}
-             
-              
+
+
               <br>
               CREDIT : {{x.author.name}}
             </p>
@@ -93,8 +128,8 @@
           </div>
         </div>
       </div>
-      
-     
+
+
 
     {% endfor %}
   </div>

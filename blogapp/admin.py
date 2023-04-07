@@ -18,7 +18,7 @@ class ModuleAdmin(admin.ModelAdmin):
     search_fields = ('name', 'sub__name')
 
 class NotesAdmin(admin.ModelAdmin):
-    list_display = ('desc', 'mod', 'file', 'author', 'status', 'typeN',  'sub')
+    list_display = ('nDetail','desc', 'mod', 'file', 'author', 'status', 'typeN',  'sub')
     list_filter = ('mod', 'author', 'status', 'typeN', 'sub')
     search_fields = ('desc', 'mod', 'author__name', 'typeN', 'sub__name')
 

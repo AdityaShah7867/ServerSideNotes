@@ -2,9 +2,9 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary" >
     <div class="container-fluid" style="background-color: white;">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon" style="rotate: 90deg; font-size: 20px; color: black;">|||</span>
       </button>
-      <a class="navbar-brand mb-0 h1" href="{% url 'notes'%}" style="color: black;">NOTES 2.0</a>
+      <a class="navbar-brand mb-0 h1" href="{% url 'notes'%}" style="color: black;">Note Beta</a>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
           {% if user.is_authenticated %}
@@ -13,6 +13,10 @@
           </li>
           <li class="nav-item" >
             <a class="nav-link abc" href="{% url 'notes' %}" >Notes</a>
+          </li>
+
+          <li class="nav-item" >
+            <a class="nav-link abc" href="{% url 'teacher' %}" >Faculty</a>
           </li>
 
           <li class="nav-item" >
@@ -31,6 +35,9 @@
           <li class="nav-item">
             <a class="nav-link abc" href="{% url 'add_reminder' %}" >Reminder</a>
           </li>
+            <li class="nav-item">
+            <a class="nav-link abc" href="{% url 'admin:index' %}" >Admin</a>
+          </li>
           {% endif %}
 
           {% if user.is_authenticated %}
@@ -48,10 +55,10 @@
               <span class="slider"></span>
             </label>
 
-            
-            
-            
- 
+
+
+
+
 
       </div>
     </div>
@@ -106,14 +113,14 @@
     width: var(--width-of-switch);
     height: var(--height-of-switch);
   }
-  
+
   /* Hide default HTML checkbox */
   .switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
-  
+
   /* The slider */
   .slider {
     position: absolute;
@@ -126,7 +133,7 @@
     transition: .4s;
     border-radius: 30px;
   }
-  
+
   .slider:before {
     position: absolute;
     content: "";
@@ -140,11 +147,11 @@
     ;
    transition: .4s;
   }
-  
+
   input:checked + .slider {
     background-color: #303136;
   }
-  
+
   input:checked + .slider:before {
     left: calc(100% - (var(--size-of-icon,1.4em) + var(--slider-offset,0.3em)));
     background: #303136;
@@ -152,5 +159,5 @@
     box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
   }
 
-  
+
 </style>

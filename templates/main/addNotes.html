@@ -8,8 +8,8 @@
 </style>
 
     <link rel="stylesheet" href="{% static 'css/newAdd.css' %}" />
- 
-    
+    <link href="{% static 'images/notees.png' %}" rel="icon" type="image/x-icon" >
+
     <div class="container">
 
 		<form class="form" action="{% url 'addNotes' %}" method="post" enctype="multipart/form-data" >
@@ -45,7 +45,7 @@
       </select>
 
               <span class="form-title">Upload your file</span>
-              
+
                <label for="file-input" class="drop-container">
               <span class="drop-title">Drop files here</span>
               or
@@ -65,12 +65,12 @@
                     <span>Send</span>
                   </button>
             </div>
-            
+
                 </form>
                   <button type="button" class="btn btn-primary errBtn" data-bs-toggle="modal" id="errorBrn" data-bs-target="#exampleModal">
                     Launch demo modal
                   </button>
-                
+
                   <!-- Modal -->
                   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -83,28 +83,28 @@
                           File size should be less than 20MB! like come on Bro we are using a free webserver.. cope with us
                         </div>
                         <div class="modal-footer">
-                
+
                           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got It!</button>
                         </div>
                       </div>
                     </div>
                   </div>
-                
-                
-                
-                
+
+
+
+
                         <script>
                             const input = document.querySelector('input[type="file"]');
                             let btn = document.getElementById('errorBrn');
-                
+
                             input.addEventListener('change',()=>{
                                 validateSize();
                             })
-                
+
                             document.querySelector('form').addEventListener('submit',(e) => {
-                
+
                                 const res = validateSize();
-                
+
                                 if (res){
                                     e.preventDefault();
                                     btn.click();
@@ -112,16 +112,16 @@
                                 }else{
                                     console.log('okay');
                                 }
-                
+
                             })
-                
+
                             function validateSize(){
                                 const file = input.files[0];
                                 if(!file){
                                    const err =  new Error("No file Selected");
                                    return err;
                                 }
-                
+
                                 const limit = 20000;
                                 const size = file.size/1024;
                                 if(size > limit){
@@ -131,9 +131,9 @@
                                     return false;
                                 }
                             }
-                
-                
-                
+
+
+
                         </script>
                     </div>
                 <style>
@@ -151,54 +151,54 @@
                   overflow: hidden;
                   transition: all 0.2s;
                 }
-                
+
                 button span {
                   display: block;
                   margin-left: 0.3em;
                   transition: all 0.3s ease-in-out;
                 }
-                
+
                 button svg {
                   display: block;
                   transform-origin: center center;
                   transition: transform 0.3s ease-in-out;
                 }
-                
+
                 button:hover .svg-wrapper {
                   animation: fly-1 0.6s ease-in-out infinite alternate;
                 }
-                
+
                 button:hover svg {
                   transform: translateX(1.2em) rotate(45deg) scale(1.1);
                 }
-                
+
                 button:hover span {
                   transform: translateX(5em);
                 }
-                
+
                 button:active {
                   transform: scale(0.95);
                 }
-                
+
                 @keyframes fly-1 {
                   from {
                     transform: translateY(0.1em);
                   }
-                
+
                   to {
                     transform: translateY(-0.1em);
                   }
                 }
-                
-                
+
+
                 </style>
-                
-                
-              
-                
-                
-            
-		
+
+
+
+
+
+
+
 	</div>
 
 {% endblock %}

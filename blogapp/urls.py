@@ -6,7 +6,7 @@ urlpatterns = [
     path('addNotes/', views.addNotes,name='addNotes'),
     path('notes/', views.notes,name='notes'),
     path('dashboard/', views.dashboard,name='dashboard'),
-    
+
     path('notes/<slug:slug>/',views.noteViewer,name='notesViewer'),
     path('status/',views.status,name='status'),
     path('notesuploded/',views.notesuploded,name='notesuploded'),
@@ -16,7 +16,7 @@ urlpatterns = [
     path('logout/',views.logoutR,name='logout'),
     path('aboutus/',views.aboutUs,name='about'),
     path('register/',views.registerR,name='register'),
-    path('teacher/',views.teacher,name='teacher'),
+    path('faculty/',views.teacher,name='teacher'),
     path('btmNav/',views.btmNav,name='btmNav'),
     path('btmNav/<slug:slug>',views.noteViewer,name='btmNav'),
     path('referenceBooks/',views.refeBk,name='referenceBooks'),

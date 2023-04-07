@@ -3,8 +3,8 @@
 {% load crispy_forms_tags %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/card.css' %}" />
-
-<div class="container notesCnt mt-4">
+<link href="{% static 'images/notees.png' %}" rel="icon" type="image/x-icon" >
+<div class="container notesCnt mt-4 mb-4 ">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="container-lg-6">
       {% include 'components/search.html' %}
@@ -26,7 +26,7 @@
                           </div>
                        </form>
                     </div>
-                   
+
                   </div>
                 </div>
             </div>
@@ -37,8 +37,7 @@
 
   <div class="row d-flex justify-content-center align-items-center">
     {% for x in notes %}
-    <div class="card cardImg mx-4 my-4"
-      style="width: 22rem; height: 16em; background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 60%),url('{{x.sub.img.url}}');">
+    <div class="card cardImg mx-4 my-4" style="width: 22rem; height: 16em; background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 60%),url('{{x.sub.img.url}}');">
 
       <div class="card-body">
         <div class="text-block">
@@ -67,7 +66,7 @@
           </form>
           {% endif %}
 
-
+        </div>
         </div>
       </div>
       {% endfor %}

@@ -8,7 +8,7 @@
     .sbtn{
         width: 16em;
         height: 3em;
-        
+
     }
     .searchCnt{
         margin-bottom: 2em;
@@ -29,7 +29,7 @@
                         <h6 class="card-subtitle mb-2">Module No: {{x.mod}}</h6>
                         <h6 class="card-subtitle mb-2 text-muted">{{x.typeN}}</h6>
                         <p class="card-text">Thanks to : {{x.author}} </p>
-                        <a href="{{x.slug}}" class="card-link">View PDF</a>
+                        <a href="{{x.docid}}" class="card-link">View PDF</a>
                     </div>
                 </div>
                 {% endfor %}
@@ -42,7 +42,7 @@
             </div>
 
             <div class="col-md-8 col-lg-7 col-xl-6 d-flex justify-content-center align-items-center">
-               
+
                 <img src="{% static 'images/remove.png' %}" class="img-fluid" alt="">
             </div>
         </div>
@@ -51,8 +51,8 @@
                 <a href="{% url 'notes' %}" class="slink"><button class="btn sbtn btn-primary">Search Another</button></a>
             </div>
         </div>
-        
-        
+
+
         {% endif %}
     </div>
 

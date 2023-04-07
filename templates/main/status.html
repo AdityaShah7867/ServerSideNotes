@@ -3,9 +3,9 @@
 	<title>DASHBOARD</title>
 	<link rel="stylesheet" href="{% static 'css/dash.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/res.css' %}" />
-	
+
   <style>
- 
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -54,9 +54,9 @@ a{
 
 	<!-- for header part -->
 	<header>
-		
+
 		<div class="logosec">
-			<a href="{% url 'notes'%}"></a>
+			<a href="{% url 'notes'%}">
 			<div class="logo">NOTES 2.0</div></a>
 			<img src=
 "https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
@@ -65,7 +65,7 @@ a{
 				alt="menu-icon">
 		</div>
 
-			
+
 
 		<div class="message">
 			<div class="circle"></div>
@@ -73,13 +73,13 @@ a{
 "https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/8.png"
 				class="icn"
 				alt=""><h3 > COINS : {{user.coins_scored}} </h3>
-				
-        
+
+
 				<p><Strong style="color:#3f0097;">{{user.name}}</Strong></p>
 
         <a href="{% url 'dashboard' %}">
 			<div class="dp">
-				
+
 			<img src=
 "https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
 					class="dpicn"
@@ -102,14 +102,14 @@ a{
 							alt="dashboard">
 						<h3> Notes Status </h3>
 					</div>
-          <a href="{% url 'dashboard' %}"> 
+          <a href="{% url 'dashboard' %}">
                     <div class="nav-option option3">
 						<img src=
 "https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/5.png"
 							class="nav-img"
 							alt="report">
 						<h3 style="color: black;"> DashBoard</h3>
-         
+
 					</div>
         </a >
         <a href="{% url 'notes' %}">
@@ -122,7 +122,7 @@ a{
 					</div>
         </a>
 
-					
+
 
 					<!-- <div class="nav-option option4">
 						<img src=
@@ -202,7 +202,7 @@ a{
 					<a href="{% url 'noteslikes' %}" style="text-decoration: none;">
 					<div class="text">
 
-						
+
 						<h2  style="color: aliceblue;" class="topic-heading">{{note_likes}}</h2>
 						<h2  style="color: aliceblue;" class="topic">Likes</h2>
 					</a>
@@ -213,17 +213,17 @@ a{
 						alt="comments">
 				</div>
 
-				
+
 				<div class="box box4">
 					<a href="{% url 'notesuploded' %}" style="text-decoration: none;">
 					<div class="text">
 						<h2 style="color: aliceblue;"  class="topic-heading">{{notes.count}}</h2>
-						
+
 						<h2 style="color: aliceblue;" class="topic"> Notes Uploaded</h2>
 						</a>
-					
+
 					</div>
-				
+
 
 					<img src=
 "https://media.geeksforgeeks.org/wp-content/uploads/20221210185029/13.png" alt="published">
@@ -243,7 +243,7 @@ a{
 						<h3 class="t-op">Status</h3>
 						<h3 class="t-op">Action</h3>
 					</div>
-				
+
 					<div class="items">
 						{% for x in notes %}
 						<div class="item1">
@@ -271,8 +271,8 @@ a{
 
 					</div>
 				</div>
-       
-				
+
+
 	</div>
   <script>
 	let menuicn = document.querySelector(".menuicn");

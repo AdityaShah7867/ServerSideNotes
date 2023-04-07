@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ii*6olfb(ajlyy(*0nc0*+)_$j7j+ojy64o57%(6=pil8@=t7='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 #ALLOWED_HOSTS = ['NotesProjectBeta.pythonanywhere.com',]
 ALLOWED_HOSTS = ['*']
@@ -163,9 +163,8 @@ MESSAGE_TAGS = {
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'rehman.khan.300a@gmail.com'
-EMAIL_HOST_PASSWORD = 'ftpzdktuhrmmsved'
-EMIAL_FROM_USER = 'novag388@gmail.com'
+EMAIL_HOST_USER = 'notes.vcet@gmail.com'
+EMAIL_HOST_PASSWORD = 'dcxdpjwjbwqimylv'
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 # MEDIA_ROOT = [os.path.join(BASE_DIR, 'media')]

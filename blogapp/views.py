@@ -28,6 +28,11 @@ from django.core.mail import EmailMessage
 #     user.coins_scored -=100
 #     user.save()
 
+# for user in UserAccount.objects.all():
+#     user.is_emailVerified = True
+#     user.save()
+
+
 
 
 
@@ -90,7 +95,7 @@ def dashboard(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    
+
 
     context = {
         'notes' : notes,
@@ -120,7 +125,7 @@ def addNotes(request):
             typeN = request.POST.get('typeN')
             subje = request.POST.get('subjectName')
             sub = Subject.objects.get(name = subje)   #Referencing Subject model since it is a foreignKey for Notes model
-            des = f'{desc} - {mod} of {subje} : {typeN} by {request.user.name}'   #Creating custom description
+            des = desc    #Creating custom description
             details = f'{sub.name}  Module - {mod} - {typeN} by {request.user}'
             note = Notes(                    #creating a new object  of notes
                 desc = des,
@@ -227,6 +232,15 @@ def loginR(request):
 
         user = authenticate(email = email, password = password)
 
+        if user is None:
+            messages.error(request,'user does not exist')
+            return render(request,'authentication/login.html')
+
+        if email == "" or password == "" :
+            messages.error(request,f'Email or password cannot be blanked')
+            return render(request,'authentication/login.html')
+
+
         if not user.is_emailVerified:
             messages.error(request,f'Email is not verified please check your {email} inbox')
             return render(request,'authentication/login.html')
@@ -251,24 +265,24 @@ def registerR(request):
         email = request.POST.get('email')
         name = request.POST.get('name')
         password = request.POST.get('password')
-        
 
-        # if not email.endswith('@vcet.edu.in'):
-        #     messages.warning(request,'Only users with vcet.edu.in domain email addresses are allowed to register.')
-        #     return render(request, 'authentication/register.html')
-     
+
+        if not email.endswith('@vcet.edu.in'):
+            messages.warning(request,'Only users with vcet.edu.in domain email addresses are allowed to register.')
+            return render(request, 'authentication/register.html')
+
         # try:
         #     validate_email(email)
         # except ValidationError:
         #     messages.warning(request,'Invalid email address.')
         #     return render(request, 'authentication/register.html')
 
-       
+
         if UserAccount.objects.filter(email=email).exists():
             messages.warning(request,'User with this email already exists')
             return render(request,'authentication/register.html')
-        
-        
+
+
         if not name:
             messages.warning(request,'Name is required.')
             return render(request,'authentication/register.html')
@@ -277,7 +291,7 @@ def registerR(request):
             messages.warning(request,'Password should be at least 6 characters.')
             return render(request,'authentication/register.html')
 
-       
+
         myuser = UserAccount.objects.create_user(email, name, password)
         myuser.save()
         send_activation_email(myuser,request)
@@ -425,7 +439,7 @@ def acceptStatus(request,slug):
         return redirect('adminResponse')
 
 def notesuploded(request):
-    
+
     user = request.user
     notes = Notes.objects.filter(author=user,status=True)
     notes_with_likes = []
