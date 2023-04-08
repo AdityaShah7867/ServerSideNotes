@@ -94,6 +94,7 @@ def dashboard(request):
     paginator = Paginator(users, 15)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    user_count = UserAccount.objects.filter(is_superuser=False).count()
 
 
 
@@ -103,6 +104,7 @@ def dashboard(request):
         'rank':rank,
         'users': users,
         'page_obj': page_obj,
+        'user_count':user_count
 
     }
     return render(request,'main/dashboard.html',context)
@@ -137,7 +139,9 @@ def addNotes(request):
                 nDetail = details,
             )
             note.save()     #Saving the newly created object into the database
-            messages.success(request,'Sent for Verification Succesfully')
+
+
+            messages.success(request, 'Sent for Verification Succesfully')
             note.buy.add(request.user)
             return redirect('notes')
         except:
