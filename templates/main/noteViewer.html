@@ -8,7 +8,7 @@
 
     <form action="{% url 'like_notes' note.pk %}" method="POST">
       {% csrf_token %}
-      {% if request.user in x.likes.all %}
+      {% if request.user in note.likes.all %}
       <button type="submit" class="btn btn-primary liked" style="margin-left: 10px; margin-right: 10px;">
         <span class="heart-icon">&hearts;</span> {{ note.likes.count }} Liked
       </button>
