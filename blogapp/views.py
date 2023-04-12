@@ -25,7 +25,7 @@ from django.core.mail import EmailMessage
 # Create your views here.
 
 # for user in UserAccount.objects.all():
-#     user.coins_scored -=100
+#     user.coins_scored +=100
 #     user.save()
 
 # for note in Notes.objects.all():
@@ -58,7 +58,7 @@ def home(request):
 @allowed_users(allowed_roles=['admin'])
 def adminResponse(request):
 
-    notes = Notes.objects.all()
+    notes = Notes.objects.all().order_by('status')
     context = {
         'notes' : notes,
     }
@@ -158,19 +158,23 @@ def addNotes(request):
 
 @login_required(login_url='/login/')
 def notes(request):
-    notes = (Notes.objects.filter(status = True, typeN= 'Notes') | Notes.objects.filter(status = True, typeN= 'Assignment') | Notes.objects.filter(status = True, typeN= 'Experiment') )
-    from django.db.models import Count
+    # Retrieve all notes that are accepted by the admin
+    notes = Notes.objects.filter(status=True, typeN='Notes')
 
-# Retrieve all notes and annotate them with the number of likes
+    # Annotate the notes queryset with the number of likes
+    notes = notes.annotate(num_likes=Count('likes'))
 
+    # Order the notes queryset by the number of likes in descending order
+    notes = notes.order_by('-num_likes')
 
-         #Fetches only that notes which are accepted by the admin
-    filteredNotes = NoteFilter(request.GET, queryset = notes)      #Using django-filter extension declared in filters.py file
+    # Filter the notes using django-filter extension declared in filters.py file
+    filteredNotes = NoteFilter(request.GET, queryset=notes)
+
     context = {
-        'notes' : filteredNotes,
-
+        'notes': filteredNotes,
     }
-    return render(request,'main/realhome.html',context)
+
+    return render(request, 'main/realhome.html', context)
 
 #View for displaying notes in the notepage ends here
 
@@ -211,6 +215,11 @@ def searchNotes(request):
 
         searchQ = request.POST.get('searchQ')
         notes = Notes.objects.filter(nDetail__contains = searchQ,status=True)
+
+        if searchQ =="":
+            messages.error(request,'Nothing to Search ')
+            return render(request,'main/realhome.html')
+
 
         if notes is not None:
             context = {
@@ -317,6 +326,7 @@ def logoutR(request):
 
 
 @login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def noteViewer(request, slug):
     notes = Notes.objects.filter(slug=slug)
     note = get_object_or_404(Notes, slug=slug)
@@ -328,23 +338,26 @@ def noteViewer(request, slug):
     view_count = request.session.get('view_count', {})
     if not view_count.get(slug):
         view_count[slug] = 0
-
-    if request.method == 'POST':
-        # Check if the bookmark button was clicked
-        if 'bookmark' in request.POST:
-            # Check if the user has already bookmarked the note
-            user = request.user
-            bookmarked_notes = user.bookmarks.all()
-            if note in bookmarked_notes:
-                # Remove the bookmark
-                user.bookmarks.remove(note)
-            else:
-                # Add the bookmark
-                user.bookmarks.add(note)
-        else:
-            # Increment the view count for the current note in the session
-            view_count[slug] += 1
-            request.session['view_count'] = view_count
+    if request.user in note.buy.all():
+       if request.method == 'POST':
+           # Check if the bookmark button was clicked
+           if 'bookmark' in request.POST:
+               # Check if the user has already bookmarked the note
+               user = request.user
+               bookmarked_notes = user.bookmarks.all()
+               if note in bookmarked_notes:
+                   # Remove the bookmark
+                   user.bookmarks.remove(note)
+               else:
+                   # Add the bookmark
+                   user.bookmarks.add(note)
+           else:
+               # Increment the view count for the current note in the session
+               view_count[slug] += 1
+               request.session['view_count'] = view_count
+    else:
+        messages.error(request,"You have not buyed the note")
+        return redirect('notes')
 
     # Check if the user has already bookmarked the note
     user = request.user
@@ -360,7 +373,6 @@ def noteViewer(request, slug):
         'total_comments':total_comments
     }
     return render(request, 'main/noteViewer.html', context)
-
 
 
 
@@ -385,7 +397,7 @@ def teacher(request):
 @login_required(login_url='/login/')
 def btmNav(request):
 
-    notes = Notes.objects.filter(typeN='LectureSlides')
+    notes = Notes.objects.filter(typeN='LectureSlides',status = True)
     return render(request,'main/btmNavSort.html',{'notes':notes})
 
 @login_required(login_url='/login/')
@@ -401,6 +413,14 @@ def pyqA(request):
 
     notes = Notes.objects.filter(status=True,typeN='PYQ')
     return render(request,'main/btmNavSort.html',{'notes':notes})
+
+@login_required(login_url='/login/')
+def Assignment(request):
+
+    notes = (Notes.objects.filter(status=True,typeN='Assignment') |
+            Notes.objects.filter(status=True, typeN='Experiment'))
+    return render(request,'main/btmNavSort.html',{'notes':notes})
+
 
 #bottom nav views ends here
 
@@ -463,7 +483,7 @@ def notesuploded(request):
 
 @login_required(login_url='/login/')
 def leaderboard(request):
-    users = UserAccount.objects.all().filter(is_superuser=False).order_by('-coins_scored')
+    users = UserAccount.objects.all().filter(is_superuser=False,is_emailVerified=True).order_by('-coins_scored')
     rank = 0
     prev_score = None
     for user in users:

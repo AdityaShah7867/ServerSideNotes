@@ -21,6 +21,7 @@ urlpatterns = [
     path('btmNav/<slug:slug>',views.noteViewer,name='btmNav'),
     path('referenceBooks/',views.refeBk,name='referenceBooks'),
     path('pyq/',views.pyqA,name='pyqA'),
+    path('Assignment/',views.Assignment,name='Assignment'),
     path('searchRecmd/',views.searchRecmd,name='searchRecmd'),
     path('adminResponse/',views.adminResponse,name='adminResponse'),
     path('leaderboard/',views.leaderboard,name='leaderboard'),
