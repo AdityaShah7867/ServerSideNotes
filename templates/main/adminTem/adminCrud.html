@@ -18,7 +18,7 @@
         <tbody>
             {% for x in notes %}
                 <tr>
-                    <th scope="row">{{x.author}}</th>
+                    <th scope="row">{{x.author.name}}</th>
                     <td>{{x}}</td>
                     <td>{{x.author.coins_scored}}</td>
                     <td>{{x.status}}</td>
@@ -32,7 +32,7 @@
                         Add drive link
                       </button>
                       </td>
-                    <td><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal2{{forloop.counter}}">
+                    <td><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#delete">
                         Delete
                       </button></td>
                 </tr>
@@ -73,7 +73,7 @@
   {% endfor %}
 
   {% for x in notes %}
-  <div class="modal fade" id="exampleModal2{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
