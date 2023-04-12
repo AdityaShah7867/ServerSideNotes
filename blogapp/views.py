@@ -172,6 +172,7 @@ def notes(request):
 
     context = {
         'notes': filteredNotes,
+
     }
 
     return render(request, 'main/realhome.html', context)
@@ -214,9 +215,9 @@ def searchNotes(request):
     if request.method == 'POST':
 
         searchQ = request.POST.get('searchQ')
-        notes = Notes.objects.filter(nDetail__contains = searchQ,status=True)
-
-        if searchQ =="":
+        note = Notes.objects.filter(nDetail__contains = searchQ,status=True)
+        notes = NoteFilter(request.GET, queryset = note)
+        if searchQ == "":
             messages.error(request,'Nothing to Search ')
             return render(request,'main/realhome.html')
 
@@ -226,12 +227,12 @@ def searchNotes(request):
                 'notes' : notes,
                 'ser' : searchQ
             }
-            return render(request,'main/searchR.html',context)
+            return render(request,'main/realhome.html',context)
         else:
-            return render(request,'main/searchR.html')
+            return render(request,'main/realhome.html')
 
     else:
-        return render(request,'main/searchR.html')
+        return render(request,'main/realhome.html')
 
 
 
@@ -397,29 +398,33 @@ def teacher(request):
 @login_required(login_url='/login/')
 def btmNav(request):
 
-    notes = Notes.objects.filter(typeN='LectureSlides',status = True)
-    return render(request,'main/btmNavSort.html',{'notes':notes})
+    note = Notes.objects.filter(typeN='LectureSlides',status = True)
+    notes = NoteFilter(request.GET, queryset=note)
+    return render(request,'main/realhome.html',{'notes':notes})
 
 @login_required(login_url='/login/')
 def refeBk(request):
 
-    notes = Notes.objects.filter(status=True,typeN='ReferenceBook')
-    return render(request,'main/btmNavSort.html',{'notes':notes})
+    note = Notes.objects.filter(status=True,typeN='ReferenceBook')
+    notes = NoteFilter(request.GET, queryset=note)
+    return render(request,'main/realhome.html',{'notes':notes})
 
 
 
 @login_required(login_url='/login/')
 def pyqA(request):
 
-    notes = Notes.objects.filter(status=True,typeN='PYQ')
-    return render(request,'main/btmNavSort.html',{'notes':notes})
+    note = Notes.objects.filter(status=True,typeN='PYQ')
+    notes = NoteFilter(request.GET, queryset=note)
+    return render(request,'main/realhome.html',{'notes':notes})
 
 @login_required(login_url='/login/')
 def Assignment(request):
 
-    notes = (Notes.objects.filter(status=True,typeN='Assignment') |
+    note = (Notes.objects.filter(status=True,typeN='Assignment') |
             Notes.objects.filter(status=True, typeN='Experiment'))
-    return render(request,'main/btmNavSort.html',{'notes':notes})
+    notes = NoteFilter(request.GET, queryset=note)
+    return render(request,'main/realhome.html',{'notes':notes})
 
 
 #bottom nav views ends here
