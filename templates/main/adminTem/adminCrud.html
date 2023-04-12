@@ -54,14 +54,14 @@
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Drive Link</label>
                         <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="{{x.docid}}" name="dLink">
-                    </div>  
+                    </div>
                     <div class="d-flex justify-content-center">
                         <a href="{{x.attachLink}}"><button type="submit" class="btn btn-primary">Save</button></a>
                     </div>
-                    
-                    
+
+
                 </form>
-                            
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -71,7 +71,7 @@
     </div>
 
   {% endfor %}
-  
+
   {% for x in notes %}
   <div class="modal fade" id="exampleModal2{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">

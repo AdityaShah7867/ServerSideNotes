@@ -21,6 +21,7 @@ class NotesAdmin(admin.ModelAdmin):
     list_display = ('nDetail','desc', 'mod', 'file', 'author', 'status', 'typeN',  'sub')
     list_filter = ('mod', 'author', 'status', 'typeN', 'sub')
     search_fields = ('desc', 'mod', 'author__name', 'typeN', 'sub__name')
+    ordering = ('status',)
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('toU', 'fromU', 'note', 'cmnt', 'cmntDate')
