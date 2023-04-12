@@ -25,8 +25,15 @@ from django.core.mail import EmailMessage
 # Create your views here.
 
 # for user in UserAccount.objects.all():
-#     user.coins_scored +=100
-#     user.save()
+#     if user.coins_scored<100:
+#         user.coins_scored +=50
+#         user.save()
+
+
+
+
+
+
 
 # for note in Notes.objects.all():
 #     note.desc = ""
